@@ -50,7 +50,7 @@ class PicasaFieldFile(FieldFile):
             return self.src(size=size)
         return super(PicasaFieldFile, self).__getattr__(name)
             
-    def src(self, size=None):
+    def src(self, size=None, crop=False):
         img_url = self.storage.url(self.name)
         if size is not None:
             try:
@@ -58,7 +58,10 @@ class PicasaFieldFile(FieldFile):
             except IndexError:
                 size = self.SIZES[-1]
             url, img = img_url.rsplit ('/',1)
-            return '%s/s%d/%s' %(url, size, img)
+            do_crop = ''
+            if crop:
+                do_crop = '-c'
+            return '%s/s%d%s/%s' %(url, size, do_crop, img)
         return  img_url
     
     def _url(self):
