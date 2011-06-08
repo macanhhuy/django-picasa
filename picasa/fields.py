@@ -68,10 +68,10 @@ class PicasaFieldFile(FieldFile):
         return  self.photo().GetHtmlLink().href
     url = property(_url)
         
-        
     
    
         
+
 
 
 class PicasaField(FileField):
